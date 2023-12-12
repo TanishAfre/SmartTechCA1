@@ -12,6 +12,7 @@ def load_cifar_datasets():
     (cifar100_train_images, cifar100_train_labels), _ = cifar100.load_data()
     return cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels
 
+
 def filter_and_combine_datasets(cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels):
     # Define the class indices for CIFAR-10 and CIFAR-100
     cifar10_classes = {'automobile': 1, 'bird': 2, 'cat': 3, 'deer': 4, 'dog': 5, 'horse': 7, 'truck': 9}
@@ -39,8 +40,69 @@ def filter_and_combine_datasets(cifar10_train_images, cifar10_train_labels, cifa
 
     return combined_images, combined_labels
 
+def preprocess_images(images):
+    # Preprocessing steps like grayscale conversion, normalization, reshaping, Gaussian blur, equalizing histogram etc.
+    images = np.array([cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) for img in images])
+    images = images.astype('float32') / 255.0
+    images = np.expand_dims(images, axis=-1)
+    images = images.reshape((-1, 32, 32, 1))
+    images = np.array([cv2.GaussianBlur(img, (5, 5), 0) for img in images])
+    return images
+
+def plot_sample_images(images):
+    # Plot sample images
+    plt.figure(figsize=(10, 10))
+    for i in range(24):
+        plt.subplot(5, 5, i + 1)
+        plt.imshow(images[i].reshape((32, 32)), cmap='gray')
+        plt.axis('off')
+    plt.show()
+
+def plot_label_histograms(labels):
+    unique_labels, label_counts = np.unique(labels, return_counts=True)
+
+    plt.figure(figsize=(15, 5))
+
+    plt.bar(unique_labels, label_counts)
+    plt.xlabel('Class Name')
+    plt.ylabel('Count')
+    plt.title('Label Distribution (Combined CIFAR-10 and CIFAR-100)')
+    plt.xticks(rotation=45)
+
+    plt.tight_layout()
+    plt.show()
+
+    # equalize the histogram
+    plt.figure(figsize=(15, 5))
+    plt.bar(unique_labels, label_counts / sum(label_counts))
+    plt.xlabel('Class Name')
+    plt.ylabel('Count')
+    plt.title('Label Distribution (Combined CIFAR-10 and CIFAR-100)')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+def display_training_images(images, labels):
+    # Display the first 100 images with labels
+    plt.figure(figsize=(15, 15))
+    for i in range(100):
+        plt.subplot(10, 10, i + 1)
+        plt.imshow(images[i].reshape((32, 32)), cmap='gray')
+        plt.axis('off')
+        plt.title(labels[i])
+    plt.show()
+
+
 if __name__ == "__main__":
     cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels = load_cifar_datasets()
-
-    combined_images, combined_labels = filter_and_combine_datasets(cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels)
     
+    combined_images, combined_labels = filter_and_combine_datasets(cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels)
+    combined_images = preprocess_images(combined_images)
+    
+    # Plot sample images
+    plot_sample_images(combined_images)
+    
+    # Plot combined label histogram
+    plot_label_histograms(combined_labels)
+
+    display_training_images(combined_images, combined_labels) 
