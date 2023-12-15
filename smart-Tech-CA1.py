@@ -42,12 +42,13 @@ def filter_and_combine_datasets(cifar10_train_images, cifar10_train_labels, cifa
 
 def preprocess_images(images):
     # Preprocessing steps like grayscale conversion, normalization, reshaping, Gaussian blur, equalizing histogram etc.
-    images = np.array([cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) for img in images])
-    images = images.astype('float32') / 255.0
+    gray_images  = [cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) for img in images]
+    equalized_images = [cv2.equalizeHist(img) for img in gray_images]
+    images_array = np.array(equalized_images).reshape((-1, 32, 32, 1))
+    images_normalized = images_array.astype('float32') / 255.0
     images = np.expand_dims(images, axis=-1)
-    images = images.reshape((-1, 32, 32, 1))
-    images = np.array([cv2.GaussianBlur(img, (5, 5), 0) for img in images])
-    return images
+    blurred_images = np.array([cv2.GaussianBlur(img, (5, 5), 0) for img in images_normalized])
+    return blurred_images
 
 def plot_sample_images(images):
     # Plot sample images
