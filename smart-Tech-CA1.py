@@ -111,3 +111,5 @@ if __name__ == "__main__":
 # Plot the first image in the combined dataset
 label_mapping = {label: idx for idx, label in enumerate(set(combined_train_labels))}
 combined_train_labels = np.array([label_mapping[label] for label in combined_train_labels])
+
+print(combined_train_images[0])
