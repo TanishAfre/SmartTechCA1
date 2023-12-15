@@ -113,3 +113,15 @@ label_mapping = {label: idx for idx, label in enumerate(set(combined_train_label
 combined_train_labels = np.array([label_mapping[label] for label in combined_train_labels])
 
 print(combined_train_images[0])
+
+model = Sequential()
+model.add(Dense(units=1, input_shape=(32, 32, 1), activation='sigmoid'))
+
+model.compile(optimizer='SGD'
+                , loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+h = model.fit(x=combined_train_images, y=combined_train_labels, epochs=5)
+plt.plot(h.history['accuracy'])
+plt.title('accuracy')
+plt.xlabel('epoch')
+plt.legend(['accuracy'])
+plt.show()
