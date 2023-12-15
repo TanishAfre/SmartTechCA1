@@ -114,14 +114,25 @@ combined_train_labels = np.array([label_mapping[label] for label in combined_tra
 
 print(combined_train_images[0])
 
-model = Sequential()
-model.add(Dense(units=1, input_shape=(32, 32, 1), activation='sigmoid'))
+ann = tf.keras.Sequential([
+    layers.Conv2D(filters=32, kernel_size=(3, 3), activation='relu', input_shape=(32, 32, 1)),
+    layers.MaxPooling2D((2, 2)),
 
-model.compile(optimizer='SGD'
-                , loss='sparse_categorical_crossentropy', metrics=['accuracy'])
-h = model.fit(x=combined_train_images, y=combined_train_labels, epochs=5)
-plt.plot(h.history['accuracy'])
-plt.title('accuracy')
-plt.xlabel('epoch')
-plt.legend(['accuracy'])
-plt.show()
+    layers.Conv2D(filters=64, kernel_size=(3, 3), activation='relu', input_shape=(32, 32, 1)),
+    layers.MaxPooling2D((2, 2)),
+
+    layers.Conv2D(filters=128, kernel_size=(3, 3), activation='relu', input_shape=(32, 32, 1)),
+    layers.MaxPooling2D((2, 2)),
+
+    layers.Flatten(),
+    layers.Dense(3000, activation='relu'),
+    layers.Dense(1000, activation='relu'),
+    layers.Dense(22, activation='softmax')  # Changed to softmax for multi-class classification
+])
+# Compile the model
+ann.compile(optimizer='adam',
+            loss='sparse_categorical_crossentropy',
+            metrics=['accuracy'])
+
+# Fit the model
+ann.fit(combined_train_images, combined_train_labels, epochs=15, batch_size=32)  # Ensure batch_size is appropriate
