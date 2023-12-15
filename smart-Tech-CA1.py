@@ -107,3 +107,7 @@ if __name__ == "__main__":
     plot_label_histograms(combined_labels)
 
     display_training_images(combined_images, combined_labels) 
+
+# Plot the first image in the combined dataset
+label_mapping = {label: idx for idx, label in enumerate(set(combined_train_labels))}
+combined_train_labels = np.array([label_mapping[label] for label in combined_train_labels])
