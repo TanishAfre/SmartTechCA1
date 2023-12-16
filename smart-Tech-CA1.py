@@ -6,7 +6,7 @@ from data_preprocessing import filter_and_combine_datasets
 from image_preprocessor import preprocess_images
 from data_visualization import plot_sample_images, display_training_images
 from data_models import create_and_train_model, underfitting_model, overfitting_model
-from data_augmentaion import zoomed_image, pan_image, darken_image
+from data_augmentaion import augment_images
 
 import numpy as np
 
@@ -27,9 +27,7 @@ if __name__ == "__main__":
     #overfitting_model(preprocessed_images, combined_labels)
 
     # call the data augmentation functions
-    zoomed_images = zoomed_image(preprocessed_images)
-    panned_images = pan_image(preprocessed_images)
-    darkened_images = darken_image(preprocessed_images)
+    augmented_images = augment_images(preprocessed_images)
 
     # display the augmented images
     #display_zoomed_images(zoomed_images)
@@ -38,7 +36,7 @@ if __name__ == "__main__":
 
 
     # combine the augmented images with the original images
-    combined_images = np.concatenate((preprocessed_images, zoomed_images, panned_images, darkened_images))
+    combined_images = np.concatenate((preprocessed_images, augment_images))
     combined_labels = np.concatenate((combined_labels, combined_labels, combined_labels, combined_labels))
 
 
