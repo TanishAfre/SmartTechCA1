@@ -51,7 +51,16 @@ if __name__ == "__main__":
     plt.title("Loss")
     plt.xlabel("'epoch")
 
-
+    # Testing model
+    url = "https://raw.githubusercontent.com/YoongiKim/CIFAR-10-images/master/test/truck/0054.jpg" # Is a truck
+    response = requests.get(url, stream=True)
+    img = Image.open(response.raw)
+    plt.imshow(img, cmap=plt.get_cmap('gray'))
+    img = np.asarray(img)
+    img = cv2.resize(img, (32, 32))
+    img = preprocess_images(img)
+    img = img.reshape(1, 32, 32, 1)
+    print("predicted sign: "+ str(model.predict_classes(img), axis=-1))
 
 
 
