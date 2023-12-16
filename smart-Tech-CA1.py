@@ -4,7 +4,7 @@
 from data_loader import load_cifar_datasets
 from data_preprocessing import filter_and_combine_datasets
 from image_preprocessor import preprocess_images
-from data_visualization import plot_sample_images, display_training_images
+from data_visualization import plot_sample_images, display_training_images, plot_sample_augmented_images
 from data_models import create_and_train_model, underfitting_model, overfitting_model
 from data_augmentaion import augment_images
 
@@ -29,16 +29,7 @@ if __name__ == "__main__":
     # call the data augmentation functions
     augmented_images = augment_images(preprocessed_images)
 
-    # display the augmented images
-    #display_zoomed_images(zoomed_images)
-    #display_panned_images(panned_images)
-    #display_darkened_images(darkened_images)
-
-
-    # combine the augmented images with the original images
-    combined_images = np.concatenate((preprocessed_images, augment_images))
-    combined_labels = np.concatenate((combined_labels, combined_labels, combined_labels, combined_labels))
-
+    plot_sample_augmented_images(augmented_images)
 
     model = create_and_train_model(preprocessed_images, combined_labels)
 
