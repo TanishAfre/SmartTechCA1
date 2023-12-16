@@ -26,6 +26,11 @@ if __name__ == "__main__":
 
     #overfitting_model(preprocessed_images, combined_labels)
 
+    # test to see dimensions of each array
+    # print("Preprocessed images shape:", preprocessed_images.shape) - (42500, 32, 32)
+    # print("Augmented images shape:", augmented_images.shape) - (42500, 32, 32, 3)
+    #hence changing the input shape of the model to (32, 32, 0) instead of (32, 32, 1)
+    preprocessed_images = preprocessed_images.reshape((42500, 32, 32, 1))
     # call the data augmentation functions
     augmented_images = augment_images(preprocessed_images)
 
