@@ -39,3 +39,13 @@ if __name__ == "__main__":
     model = create_and_train_model(preprocessed_images, combined_labels)
 
     model.save('model.h5')
+
+    # printing model summary 
+    model = leNet_model()
+    print(model.summary())
+
+    
+
+
+
+
