@@ -44,7 +44,14 @@ if __name__ == "__main__":
     model = leNet_model()
     print(model.summary())
 
-    
+    # plotting the accuracy and loss of the model
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.legend(['training', 'validation'])
+    plt.title("Loss")
+    plt.xlabel("'epoch")
+
+
 
 
 
