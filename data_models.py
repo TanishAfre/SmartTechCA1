@@ -1,3 +1,5 @@
+# Made with the use of Github Co-Pilot
+
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.layers import Dense, Flatten
@@ -62,7 +64,7 @@ def overfitting_model(combined_train_images, combined_train_labels, epochs=15, b
     return overfitting_model
 
 
-def create_and_train_model(combined_train_images, combined_train_labels, epochs=1, batch_size=32):
+def create_and_train_model(combined_train_images, combined_train_labels, epochs=15, batch_size=32):
     
     # Trying to get test to work
     #def create_and_train_model(combined_train_images, combined_train_labels, validation_data=None, epochs=1, batch_size=32):

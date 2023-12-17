@@ -1,3 +1,6 @@
+# Made with the use of Github Co-Pilot
+# https://github.com/johnloane/st_23_sd4a/blob/dd3c950d6390db3e9b29fe5f05ecd0a65776697b/mnist_dnn.py#L87
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt

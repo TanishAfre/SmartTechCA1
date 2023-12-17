@@ -1,3 +1,6 @@
+# Made with the use of Github Co-Pilot
+# Followed https://github.com/johnloane/SD4PythonRefresh23/blob/c2840d968f0673417b3f2dffccf2a48cb187b32c/gts_cnn.py#L140
+
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt

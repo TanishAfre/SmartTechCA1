@@ -1,3 +1,5 @@
+# Made with the use of Github Co-Pilot
+
 import numpy as np
 from tensorflow.keras.datasets import cifar10, cifar100
 

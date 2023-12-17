@@ -9,7 +9,10 @@ from data_models import create_and_train_model, underfitting_model, overfitting_
 from data_augmentaion import augment_images
 
 import numpy as np
+import requests
 import matplotlib.pyplot as plt
+from PIL import Image
+import cv2
 
 if __name__ == "__main__":
     cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels = load_cifar_datasets()
@@ -76,15 +79,15 @@ if __name__ == "__main__":
     # plt.legend(['Train', 'Validation'], loc='upper left')
 
     # Testing model
-    url = "https://raw.githubusercontent.com/YoongiKim/CIFAR-10-images/master/test/truck/0054.jpg" # Is a truck
-    response = requests.get(url, stream=True)
-    img = Image.open(response.raw)
-    plt.imshow(img, cmap=plt.get_cmap('gray'))
-    img = np.asarray(img)
-    img = cv2.resize(img, (32, 32))
-    img = preprocess_images(img)
-    img = img.reshape(1, 32, 32, 1)
-    print("predicted sign: "+ str(model.predict_classes(img), axis=-1))
+    # url = "https://raw.githubusercontent.com/YoongiKim/CIFAR-10-images/master/test/truck/0054.jpg" # Is a truck
+    # response = requests.get(url, stream=True)
+    # img = Image.open(response.raw)
+    # plt.imshow(img, cmap=plt.get_cmap('gray'))
+    # img = np.asarray(img)
+    # img = cv2.resize(img, (32, 32))
+    # img = preprocess_images(img)
+    # img = img.reshape(1, 32, 32, 1)
+    # print("Predicted sign: " + str(np.argmax(model.predict(img), axis=-1)))
 
 
 
