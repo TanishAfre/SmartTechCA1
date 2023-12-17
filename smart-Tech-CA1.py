@@ -41,7 +41,6 @@ if __name__ == "__main__":
     model.save('model.h5')
 
     # printing model summary 
-    model = leNet_model()
     print(model.summary())
 
     # plotting the accuracy and loss of the model
