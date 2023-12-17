@@ -61,7 +61,11 @@ def overfitting_model(combined_train_images, combined_train_labels, epochs=15, b
 
     return overfitting_model
 
-def create_and_train_model(combined_train_images, combined_train_labels, epochs=15, batch_size=32):
+
+def create_and_train_model(combined_train_images, combined_train_labels, epochs=1, batch_size=32):
+    
+    # Trying to get test to work
+    #def create_and_train_model(combined_train_images, combined_train_labels, validation_data=None, epochs=1, batch_size=32):
 
     label_mapping = {label: idx for idx, label in enumerate(set(combined_train_labels))}
     combined_train_labels = np.array([label_mapping[label] for label in combined_train_labels])
@@ -87,7 +91,13 @@ def create_and_train_model(combined_train_images, combined_train_labels, epochs=
                 loss='sparse_categorical_crossentropy',
                 metrics=['accuracy'])
 
+    # Trying to get test to work
+    #history = ann.fit(combined_train_images, combined_train_labels, epochs=epochs, batch_size=batch_size, validation_data=validation_data)
+
     # Fit the model
     ann.fit(combined_train_images, combined_train_labels, epochs=epochs, batch_size=batch_size)
 
+
     return ann
+    # Trying to get test to work
+    #return ann, history

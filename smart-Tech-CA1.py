@@ -9,6 +9,7 @@ from data_models import create_and_train_model, underfitting_model, overfitting_
 from data_augmentaion import augment_images
 
 import numpy as np
+import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
     cifar10_train_images, cifar10_train_labels, cifar100_train_images, cifar100_train_labels = load_cifar_datasets()
@@ -36,19 +37,43 @@ if __name__ == "__main__":
 
     plot_sample_augmented_images(augmented_images)
 
-    model = create_and_train_model(preprocessed_images, combined_labels)
+    # Split data into training and validation sets
+    # For example, using a 80-20 split:
+    combined_labels = np.array(combined_labels)
+
+    split_index = int(0.8 * len(preprocessed_images))
+    train_images = preprocessed_images[:split_index]
+    train_labels = combined_labels[:split_index]
+    val_images = preprocessed_images[split_index:]
+    val_labels = combined_labels[split_index:]
+
+
+    # Trying to get test to work
+    # val_labels = np.array(val_labels)
+    # assert isinstance(val_labels, np.ndarray), "Validation labels must be a NumPy array"
+
+    #validation_data = (val_images, val_labels)
+
+    #assert isinstance(validation_data[0], np.ndarray), "Validation images must be a NumPy array"
+    #assert isinstance(validation_data[1], np.ndarray), "Validation labels must be a NumPy array"
+
+    #model, history = create_and_train_model(train_images, train_labels, validation_data=(val_images, val_labels))
+    model = create_and_train_model(train_images, train_labels)
 
     model.save('model.h5')
 
     # printing model summary 
     print(model.summary())
-
+    
     # plotting the accuracy and loss of the model
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.legend(['training', 'validation'])
-    plt.title("Loss")
-    plt.xlabel("'epoch")
+    # plt.figure(figsize=(10, 4))
+    # plt.subplot(1, 2, 1)
+    # plt.plot(history.history['loss'])
+    # plt.plot(history.history['val_loss'])
+    # plt.title('Model Loss')
+    # plt.ylabel('Loss')
+    # plt.xlabel('Epoch')
+    # plt.legend(['Train', 'Validation'], loc='upper left')
 
     # Testing model
     url = "https://raw.githubusercontent.com/YoongiKim/CIFAR-10-images/master/test/truck/0054.jpg" # Is a truck
